@@ -68,9 +68,44 @@ while count > 0:
   count -= 1
   print(count, end=" ")
 
+print()
+
 
 # while loop used in unknown number of repetitions
 password = ""
 
 while password != "python123":
     password = input("Enter password: ")
+
+
+# Continue statement
+#! continue skips the remaining code in the current iteration and moves to the next iteration.
+for i in range(1, 10):
+  if 3 <= i <= 7:
+    continue
+  print(i, end=" ")
+
+print()
+
+# skipping multiples of 3
+counter = 0
+for i in range(1, 15):
+  counter += 1
+  if counter == 3:
+    counter = 0
+    continue
+  print(i, end=" ")
+
+print()
+
+# Printing only after learning 3 concepts at a time.
+counter = 0
+for i in range(1, 11, 1):
+  counter += 1
+  if counter < 3:
+    continue
+  counter = 0
+  print(f"I learned {i} concepts.")
+
+
+
