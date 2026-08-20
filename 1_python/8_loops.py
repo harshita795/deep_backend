@@ -1,6 +1,7 @@
 # Python Loops
 # Concepts practiced:
 # - for loops
+# - while loops
 
 # For loop
 for i in range(1, 10):
@@ -48,4 +49,28 @@ def sum_of_evens(end):
 
 print(sum_of_evens(8))
 
+# While loop
+#! It's a loop that continues while a condition remains True.
+# A for loop condition checks if a sequence is finished.
+# A while loop condition checks if a state or situation has changed.
 
+count = 0
+
+while count < 5:
+  count += 1
+  print(count, end=" ")
+
+print()
+# counting backward with a while loop
+count = 5
+
+while count > 0:
+  count -= 1
+  print(count, end=" ")
+
+
+# while loop used in unknown number of repetitions
+password = ""
+
+while password != "python123":
+    password = input("Enter password: ")
