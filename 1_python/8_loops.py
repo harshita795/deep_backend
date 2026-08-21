@@ -136,3 +136,27 @@ while True:
   print(count, end=" ")
 
 print()
+
+
+# Accumulating values with a for loop
+def calculate_total(level):
+  total = 0
+  for i in range(1, level):
+    total += i * 5
+  return total
+
+print(calculate_total(6))
+
+
+# While loop with multiple conditions
+
+battery = 20
+max_battery = 100
+charges_left = 5
+
+while battery < max_battery and charges_left > 0:
+  battery += 15
+  charges_left -= 1
+
+print(f"Battery level: {battery}")
+print(f"Charges left: {charges_left}")
