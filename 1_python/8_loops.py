@@ -108,4 +108,31 @@ for i in range(1, 11, 1):
   print(f"I learned {i} concepts.")
 
 
+# Break statement
+#! break immediately exits the loop when a condition is met.
 
+for i in range(10):
+  n = f"{i} * {i} = {i * i}"
+  print(n)
+  if i >= 5:
+    break
+
+# Stop searching when the target is found
+numbers = [4, 7, 12, 18, 25]
+target = 18
+
+for number in numbers:
+  if target == number:
+    print(f"{target} found.")
+    break
+
+# Stop the loop when the limit is reached
+count = 0
+
+while True:
+  count += 1
+  if count == 5:
+    break
+  print(count, end=" ")
+
+print()
