@@ -92,4 +92,39 @@ for num in nums:
   if num > max_so_far:
     max_so_far = num
 print(max_so_far)
-        
+
+# Modulo operator %
+# Find the odd numbers
+numbers = [1,2,3,4,5,6,7,8,9,10]
+
+odd_numbers = []
+for number in numbers:
+  if number % 2 != 0:
+    odd_numbers.append(number)
+print(odd_numbers)
+
+# Slicing Lists
+#! List slicing returns a new list from the existing list.
+scores = [50, 70, 30, 20, 90, 10, 50]
+print(scores[1:5:2])
+
+# Omitting Sections
+print(scores[:3])
+print(scores[3:])
+
+# Using only the step section
+print(scores[::2])
+
+# Negative Indices
+#! Negative indices count from the end of the list.
+print(scores[-3:])
+print(scores[-2:])
+print(scores[-1:]) #gives the last item in the list
+print(scores[-6:-3])
+print(scores[-3:-6])  #[]
+
+# Slicing the items list
+items = ["apple", "banana", "orange", "apple", "banana", "guava"]
+print(items[2:]) # from 3rd fruit to last
+print(items[:-1]) # from start to end, except last fruit
+print(items[::2]) # from start to end even positions, 0 is even.
