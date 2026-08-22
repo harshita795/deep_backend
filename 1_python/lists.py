@@ -150,3 +150,119 @@ print(items)
 
 # list in-place modification done by .append(), .pop(), del
 
+# Tuples are collections of data that are ordered and unchangeable. We can think of a tuple as a List with a fixed size.
+my_tuple = ("this is a toy", 45, True)
+print(my_tuple[0])
+print(my_tuple[1])
+print(my_tuple[2])
+
+# Single item tuple
+my_name = ("Harshita",) # We must include a comma so Python knows it's a tuple and not regular parentheses
+
+# Tuple Unpacking
+my_info = ("Harshita", 24, True)
+name, age, is_good = my_info
+print(name)
+print(age)
+print(is_good)
+
+#! When we return multiple values from a function, we're actually returning a tuple.
+
+# List of tuples
+my_info = [
+  (
+    "Harshita",
+    24,
+    True
+  ),
+  (
+    "Harsh",
+    17,
+    True
+  ),
+  (
+    "Harshit",
+    28,
+    False
+  )
+]
+
+print(my_info[0])
+print(my_info[1])
+print(my_info[2])
+print(my_info[0][0])
+print(my_info[1][0])
+print(my_info[2][0])
+
+# Returning first element
+def firstElement(items):
+  if len(items) == 0:
+    return "ERROR"
+  return items[0]
+
+print(firstElement([1, 2]))
+print(firstElement([]))
+
+
+# Reverse list
+def reverse_list(items):
+  new_items = []
+
+  for i in range(len(items)-1, -1, -1):
+    new_items.append(items[i])
+  return new_items
+
+print(reverse_list([1,2,400,6,3]))
+
+# Reverse list using slice
+items = [1,2,400,6,3]
+print(items[::-1])
+
+# Split a string into list of words
+my_string = "My name is Harshita"
+print(my_string.split())
+
+# Join a List of Strings Into a Single String
+my_list = ["My", "name", "is", "Harshita"]
+print(" ".join(my_list))
+
+# Filter messages
+def filter_messages(messages):
+    filtered_messages = []
+    words_removed = []
+    for message in messages:
+          words = message.split()
+          good_words = []
+          dang_counter = 0
+          for word in words:
+            print(word)
+            if word == "dang":
+                dang_counter += 1
+            else:
+                good_words.append(word)
+          joined = " ".join(good_words)
+          filtered_messages.append(joined)
+          words_removed.append(dang_counter)
+    return filtered_messages, words_removed
+                
+ 
+    
+print(filter_messages([ "I enjoy learning Python", "this dang error is difficult to fix", "lets build a backend project"]))
+
+# slice odd even numbers
+numbers = [1,2,3,4,5,6,7,8,9,10]
+print(f"even_numbers: {numbers[1::2]}")
+print(f"odd_numbers: {numbers[::2]}")
+
+
+# Matching between lists
+def check_ingredient_match(recipe, inventory):
+  missing_ingredients = []
+  for item in recipe:
+    if item not in inventory:
+      missing_ingredients.append(item)
+       
+  percentage = 100 - (len(missing_ingredients) / len(recipe) * 100)
+  return percentage, missing_ingredients
+
+print(check_ingredient_match(["Dragon Scale", "Unicorn Hair", "Phoenix Feather", "Troll Tusk"],  ["Dragon Scale", "Phoenix Feather", "Troll Tusk"]))
