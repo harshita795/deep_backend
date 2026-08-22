@@ -128,3 +128,25 @@ items = ["apple", "banana", "orange", "apple", "banana", "guava"]
 print(items[2:]) # from 3rd fruit to last
 print(items[:-1]) # from start to end, except last fruit
 print(items[::2]) # from start to end even positions, 0 is even.
+
+# List concatenation
+list_A = [1,2,3] 
+list_B = [4,5,6]
+print(list_A + list_B)
+
+# List Conatins
+items = ["apple", "banana", "orange", "guava"]
+print("apple" in items)
+print("apple" not in items)
+print("mango" not in items)
+
+# List Deletion
+def del_items(items):
+  del items[0]
+  del items[-2:]
+  # return is not needed here, because the deletion happens in memory.
+del_items(items)
+print(items)
+
+# list in-place modification done by .append(), .pop(), del
+
