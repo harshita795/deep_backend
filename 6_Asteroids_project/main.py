@@ -27,6 +27,9 @@ def main():
             if event.type == pygame.QUIT:
                 return
 
+        # Read keys and update the player's position/rotation
+        player.update(dt)
+
         screen.fill("black")
 
         player.draw(screen)
