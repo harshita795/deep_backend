@@ -1,6 +1,7 @@
 import pygame
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT
 from logger import log_state
+from player import Player
 
 def main():
     pygame.init()
@@ -12,6 +13,13 @@ def main():
     clock = pygame.time.Clock()
     dt = 0.0
 
+    # Calculate the center points of the screen
+    center_x = SCREEN_WIDTH / 2
+    center_y = SCREEN_HEIGHT / 2
+
+    # Instantiate (create) the player spaceship object
+    player = Player(center_x, center_y)
+
     while True:
         log_state()
 
@@ -20,6 +28,8 @@ def main():
                 return
 
         screen.fill("black")
+
+        player.draw(screen)
 
         pygame.display.flip()
 
