@@ -6,6 +6,7 @@ from logger import log_state
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
+from shot import Shot
 
 def main():
     pygame.init()
@@ -16,12 +17,12 @@ def main():
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
+    shots = pygame.sprite.Group()
 
     # Assign the containers to the classes
     Player.containers = (updatable, drawable)
-
-    # Asteroids need to be tracked, updated, and drawn
-    Asteroid.containers = (asteroids, updatable, drawable) 
+    Asteroid.containers = (asteroids, updatable, drawable)
+    Shot.containers = (shots, updatable, drawable) 
 
     # AsteroidField only needs to update its timer (it shouldn't be drawn or grouped with asteroids)
     AsteroidField.containers = (updatable,)
