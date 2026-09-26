@@ -49,21 +49,27 @@ def main():
         for obj in updatable:
             obj.update(dt)
 
-        # Check for collisions immediately after movement updates
+        # Check for player collisions 
         for asteroid in asteroids:
             if asteroid.collides_with(player):
                 log_event("player_hit")
                 print("Game over!")
-                sys.exit() # Shuts down the game window instantly
+                sys.exit() 
+        
+        # Check for bullet-to-asteroid collisions
+        for asteroid in asteroids:
+            for shot in shots:
+                if shot.collides_with(asteroid):
+                    log_event("asteroid_shot")
+
+                    shot.kill()
+                    asteroid.kill()
 
         screen.fill("black")
-
-        # Draw all objects inside the drawable group dynamically
         for obj in drawable:
             obj.draw(screen)
 
         pygame.display.flip()
-
         dt = clock.tick(60) / 1000
 
 if __name__ == "__main__":
