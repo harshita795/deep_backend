@@ -10,6 +10,13 @@ def main():
     print(f"Screen width: {SCREEN_WIDTH}")
     print(f"Screen height: {SCREEN_HEIGHT}")
 
+    # Initialize the sprite groups
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+
+    # Assign the containers to the Player class
+    Player.containers = (updatable, drawable)
+
     clock = pygame.time.Clock()
     dt = 0.0
 
@@ -28,11 +35,14 @@ def main():
                 return
 
         # Read keys and update the player's position/rotation
-        player.update(dt)
+        # Update all objects inside the updatable group instead of just player
+        updatable.update(dt)
 
         screen.fill("black")
 
-        player.draw(screen)
+        # Draw all objects inside the drawable group dynamically
+        for obj in drawable:
+            obj.draw(screen)
 
         pygame.display.flip()
 
