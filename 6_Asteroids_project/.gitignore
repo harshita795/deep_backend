@@ -6,3 +6,4 @@ __pycache__/
 # Project lock file configuration (Optional to ignore, but standard if you prefer clean repos)
 .python-version
 game_state.jsonl
+game_events.jsonl

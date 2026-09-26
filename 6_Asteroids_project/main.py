@@ -1,4 +1,6 @@
 import pygame
+import sys
+from logger import log_event
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT
 from logger import log_state
 from player import Player
@@ -42,8 +44,16 @@ def main():
             if event.type == pygame.QUIT:
                 return
 
-        # Update all objects
-        updatable.update(dt)
+        # Update positions of all game objects
+        for obj in updatable:
+            obj.update(dt)
+
+        # Check for collisions immediately after movement updates
+        for asteroid in asteroids:
+            if asteroid.collides_with(player):
+                log_event("player_hit")
+                print("Game over!")
+                sys.exit() # Shuts down the game window instantly
 
         screen.fill("black")
 
