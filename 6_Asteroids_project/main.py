@@ -1,7 +1,7 @@
 import pygame
 import sys
 from logger import log_event
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, ASTEROID_MIN_RADIUS
 from logger import log_state
 from player import Player
 from asteroid import Asteroid
@@ -12,6 +12,11 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     print(f"Starting Asteroids with pygame version: {pygame.version.ver}")
+
+    # Text font systems
+    pygame.font.init()
+    score_font = pygame.font.SysFont("freesansbold.ttf", 48)
+    score = 0
 
     # Initialize the sprite groups
     updatable = pygame.sprite.Group()
@@ -63,9 +68,22 @@ def main():
                     log_event("asteroid_shot")
 
                     shot.kill()
+
+                    # Check how big the asteroid was to award points
+                    if asteroid.radius > ASTEROID_MIN_RADIUS * 2:
+                        score += 10
+                    elif asteroid.radius > ASTEROID_MIN_RADIUS:
+                        score += 20
+                    else:
+                        score += 50
+
                     asteroid.split()
 
         screen.fill("black")
+
+        score_surface = score_font.render(f"Score: {score}", True, "white")
+        screen.blit(score_surface, (20, 20))
+
         for obj in drawable:
             obj.draw(screen)
 
