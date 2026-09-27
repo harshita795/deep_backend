@@ -17,6 +17,7 @@ def main():
     pygame.font.init()
     score_font = pygame.font.SysFont("freesansbold.ttf", 48)
     score = 0
+    lives = 3
 
     # Initialize the sprite groups
     updatable = pygame.sprite.Group()
@@ -58,8 +59,13 @@ def main():
         for asteroid in asteroids:
             if asteroid.collides_with(player):
                 log_event("player_hit")
-                print("Game over!")
-                sys.exit() 
+
+                lives -= 1
+                if lives <= 0:
+                    print("Game over! Out of lives.")
+                    sys.exit() 
+                else:
+                    print(f"Ouch! Lives left: {lives}")
         
         # Check for bullet-to-asteroid collisions
         for asteroid in asteroids:
@@ -83,6 +89,9 @@ def main():
 
         score_surface = score_font.render(f"Score: {score}", True, "white")
         screen.blit(score_surface, (20, 20))
+
+        lives_surface = score_font.render(f"Lives: {lives}", True, "white")
+        screen.blit(lives_surface, (20, 80))
 
         for obj in drawable:
             obj.draw(screen)
