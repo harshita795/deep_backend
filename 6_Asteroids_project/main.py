@@ -65,6 +65,7 @@ def main():
                     print("Game over! Out of lives.")
                     sys.exit() 
                 else:
+                    player.respawn()
                     print(f"Ouch! Lives left: {lives}")
         
         # Check for bullet-to-asteroid collisions

@@ -1,6 +1,6 @@
 import pygame
 from circleshape import CircleShape
-from constants import PLAYER_RADIUS, LINE_WIDTH, PLAYER_TURN_SPEED, PLAYER_SPEED, PLAYER_SHOOT_SPEED, PLAYER_SHOOT_COOLDOWN_SECONDS, PLAYER_ACCELERATION, PLAYER_FRICTION
+from constants import PLAYER_RADIUS, LINE_WIDTH, PLAYER_TURN_SPEED, PLAYER_SPEED, PLAYER_SHOOT_SPEED, PLAYER_SHOOT_COOLDOWN_SECONDS, PLAYER_ACCELERATION, PLAYER_FRICTION, SCREEN_WIDTH, SCREEN_HEIGHT
 from shot import Shot
 
 class Player(CircleShape):
@@ -64,8 +64,8 @@ class Player(CircleShape):
 
         self.shoot_cooldown = PLAYER_SHOOT_COOLDOWN_SECONDS
 
-
-
-
-
-
+    def respawn(self) -> None:
+        # Overwrite the position coordinates to the exact center of the screen grid
+        self.position = pygame.Vector2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+        # Reset the physics velocity to zero so the ship isn't drifting anymore
+        self.velocity = pygame.Vector2(0, 0)
