@@ -1,6 +1,6 @@
 import pygame
 from circleshape import CircleShape
-from constants import PLAYER_RADIUS, LINE_WIDTH, PLAYER_TURN_SPEED, PLAYER_SPEED, PLAYER_SHOOT_SPEED, PLAYER_SHOOT_COOLDOWN_SECONDS, PLAYER_ACCELERATION, PLAYER_FRICTION, SCREEN_WIDTH, SCREEN_HEIGHT
+from constants import PLAYER_RADIUS, LINE_WIDTH, PLAYER_TURN_SPEED, PLAYER_SPEED, PLAYER_SHOOT_SPEED, PLAYER_SHOOT_COOLDOWN_SECONDS, PLAYER_ACCELERATION, PLAYER_FRICTION, SCREEN_WIDTH, SCREEN_HEIGHT, INVINCIBILITY_DURATION_SECONDS
 from shot import Shot
 
 class Player(CircleShape):
@@ -9,6 +9,7 @@ class Player(CircleShape):
         self.rotation = 0
         self.shoot_cooldown = 0.0
         self.velocity = pygame.Vector2(0, 0)
+        self.invincible_timer = 0.0
 
     # in the Player class
     def triangle(self) -> list[pygame.Vector2]:
@@ -22,10 +23,16 @@ class Player(CircleShape):
     def draw(self, screen: pygame.Surface) -> None:
         pygame.draw.polygon(screen, "white", self.triangle(), LINE_WIDTH)
 
+        if self.invincible_timer > 0:
+            pygame.draw.circle(screen, "white", self.position, self.radius + 10, 1)
+
     def rotate(self, dt: float) -> None:
         self.rotation += PLAYER_TURN_SPEED * dt
 
     def update(self, dt: float) -> None:
+        if self.invincible_timer > 0:
+            self.invincible_timer -= dt
+
         if self.shoot_cooldown > 0:
             self.shoot_cooldown -= dt
             
@@ -69,3 +76,4 @@ class Player(CircleShape):
         self.position = pygame.Vector2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
         # Reset the physics velocity to zero so the ship isn't drifting anymore
         self.velocity = pygame.Vector2(0, 0)
+        self.invincible_timer = INVINCIBILITY_DURATION_SECONDS

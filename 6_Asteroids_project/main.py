@@ -57,6 +57,9 @@ def main():
 
         # Check for player collisions 
         for asteroid in asteroids:
+            if player.invincible_timer > 0:
+                continue
+                
             if asteroid.collides_with(player):
                 log_event("player_hit")
 
