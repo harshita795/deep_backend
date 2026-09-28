@@ -7,6 +7,7 @@ from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
 from shot import Shot
+from particle import ExplosionParticle
 
 def main():
     pygame.init()
@@ -29,6 +30,7 @@ def main():
     Player.containers = (updatable, drawable)
     Asteroid.containers = (asteroids, updatable, drawable)
     Shot.containers = (shots, updatable, drawable) 
+    ExplosionParticle.containers = (updatable, drawable)
 
     # AsteroidField only needs to update its timer (it shouldn't be drawn or grouped with asteroids)
     AsteroidField.containers = (updatable,)
