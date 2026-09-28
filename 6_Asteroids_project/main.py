@@ -1,4 +1,5 @@
 import pygame
+import random
 import sys
 from logger import log_event
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT, ASTEROID_MIN_RADIUS
@@ -16,9 +17,10 @@ def main():
 
     # Text font systems
     pygame.font.init()
-    score_font = pygame.font.SysFont("freesansbold.ttf", 48)
+    score_font = pygame.font.Font("freesansbold.ttf", 48)
     score = 0
     lives = 3
+    screen_shake_time = 0.0
 
     # Initialize the sprite groups
     updatable = pygame.sprite.Group()
@@ -64,8 +66,9 @@ def main():
                 
             if asteroid.collides_with(player):
                 log_event("player_hit")
-
                 lives -= 1
+                screen_shake_time = 0.3
+
                 if lives <= 0:
                     print("Game over! Out of lives.")
                     sys.exit() 
@@ -78,8 +81,8 @@ def main():
             for shot in shots:
                 if shot.collides_with(asteroid):
                     log_event("asteroid_shot")
-
                     shot.kill()
+                    screen_shake_time = 0.15
 
                     # Check how big the asteroid was to award points
                     if asteroid.radius > ASTEROID_MIN_RADIUS * 2:
@@ -93,14 +96,29 @@ def main():
 
         screen.fill("black")
 
+        if screen_shake_time > 0:
+            screen_shake_time -= dt
+
+        shake_x = 0
+        shake_y = 0
+        if screen_shake_time > 0:
+            shake_x = random.randint(-6, 6)
+            shake_y = random.randint(-6, 6)
+
         score_surface = score_font.render(f"Score: {score}", True, "white")
-        screen.blit(score_surface, (20, 20))
+        screen.blit(score_surface, (20 + shake_x, 20 + shake_y))
 
         lives_surface = score_font.render(f"Lives: {lives}", True, "white")
-        screen.blit(lives_surface, (20, 80))
+        screen.blit(lives_surface, (20 + shake_x, 80 + shake_y))
 
         for obj in drawable:
+            obj.position.x += shake_x
+            obj.position.y += shake_y
+
             obj.draw(screen)
+
+            obj.position.x -= shake_x
+            obj.position.y -= shake_y
 
         pygame.display.flip()
         dt = clock.tick(60) / 1000
