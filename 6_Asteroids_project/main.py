@@ -15,6 +15,13 @@ def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     print(f"Starting Asteroids with pygame version: {pygame.version.ver}")
 
+    # Create a list of 100 random (X, Y) pixel positions across the screen
+    stars = []
+    for _ in range(100):
+        star_x = random.randint(0, SCREEN_WIDTH)
+        star_y = random.randint(0, SCREEN_HEIGHT)
+        stars.append((star_x, star_y))
+
     # Text font systems
     pygame.font.init()
     score_font = pygame.font.Font("freesansbold.ttf", 48)
@@ -95,6 +102,10 @@ def main():
                     asteroid.split()
 
         screen.fill("black")
+
+        # Draw all 100 static stars onto the black background first
+        for star in stars:
+            pygame.draw.circle(screen, "white", star, 1)
 
         if screen_shake_time > 0:
             screen_shake_time -= dt
