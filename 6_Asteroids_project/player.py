@@ -69,7 +69,11 @@ class Player(CircleShape):
         direction = direction.rotate(self.rotation)
         shot.velocity = direction * PLAYER_SHOOT_SPEED
 
-        self.shoot_cooldown = PLAYER_SHOOT_COOLDOWN_SECONDS
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_LSHIFT]:
+            self.shoot_cooldown = PLAYER_SHOOT_COOLDOWN_SECONDS / 2
+        else: 
+            self.shoot_cooldown = PLAYER_SHOOT_COOLDOWN_SECONDS
 
     def respawn(self) -> None:
         # Overwrite the position coordinates to the exact center of the screen grid
