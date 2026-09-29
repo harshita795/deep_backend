@@ -29,6 +29,7 @@ def main():
     lives = 3
     screen_shake_time = 0.0
     game_is_over = False
+    damage_flash_time = 0.0
 
     # Read the all-time high score from a text file once at launch
     high_score = 0
@@ -117,6 +118,7 @@ def main():
                 log_event("player_hit")
                 lives -= 1
                 screen_shake_time = 0.3
+                damage_flash_time = 0.1
 
                 if lives <= 0:
                     if score > high_score:
@@ -198,6 +200,14 @@ def main():
 
             obj.position.x -= shake_x
             obj.position.y -= shake_y
+
+        # SCREEN DAMAGE FLASH OVERLAY
+        if damage_flash_time > 0:
+            damage_flash_time -= dt
+            flash_surf = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
+            flash_surf.fill((255, 0, 0))
+            flash_surf.set_alpha(100) 
+            screen.blit(flash_surf, (0, 0))
 
         pygame.display.flip()
         dt = clock.tick(60) / 1000
