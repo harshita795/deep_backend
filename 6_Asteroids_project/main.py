@@ -74,6 +74,11 @@ def main():
             if event.type == pygame.QUIT:
                 return
 
+            # Shoot per single click instantly
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE and not game_is_over:
+                    player.shoot(force=True)
+
         # GAME OVER MENU SCREEN
         if game_is_over:
             keys = pygame.key.get_pressed()

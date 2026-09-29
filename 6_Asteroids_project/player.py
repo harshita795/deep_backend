@@ -60,8 +60,9 @@ class Player(CircleShape):
         rotated_vector = unit_vector.rotate(self.rotation)
         self.velocity += rotated_vector * PLAYER_ACCELERATION * dt
 
-    def shoot(self) -> None:
-        if self.shoot_cooldown > 0:
+    def shoot(self, force: bool = False) -> None:
+        # Only block the shot if we aren't forcing a manual click!
+        if not force and self.shoot_cooldown > 0:
             return
 
         shot = Shot(self.position.x, self.position.y)
