@@ -28,6 +28,7 @@ def main():
     score = 0
     lives = 3
     screen_shake_time = 0.0
+    game_is_over = False
 
     # Read the all-time high score from a text file once at launch
     high_score = 0
@@ -70,6 +71,39 @@ def main():
             if event.type == pygame.QUIT:
                 return
 
+        # GAME OVER MENU SCREEN
+        if game_is_over:
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_RETURN]:
+                # Reset tracking metrics
+                lives = 3
+                score = 0
+                game_is_over = False
+                
+                # Wipe the operational arrays clean
+                for asteroid in asteroids:
+                    asteroid.kill()
+                for shot in shots:
+                    shot.kill()
+                    
+                player.respawn()
+
+            # Render Menu Graphics Dashboard
+            screen.fill("black")
+            
+            game_over_surface = score_font.render("GAME OVER", True, "red")
+            final_score_surface = score_font.render(f"Final Score: {score}", True, "yellow")
+            restart_surface = score_font.render("Press ENTER to Restart", True, "white")
+            
+            screen.blit(game_over_surface, (SCREEN_WIDTH / 2 - game_over_surface.get_width() / 2, SCREEN_HEIGHT / 2 - 80))
+            screen.blit(final_score_surface, (SCREEN_WIDTH / 2 - final_score_surface.get_width() / 2, SCREEN_HEIGHT / 2))
+            screen.blit(restart_surface, (SCREEN_WIDTH / 2 - restart_surface.get_width() / 2, SCREEN_HEIGHT / 2 + 80))
+            
+            pygame.display.flip()
+            dt = clock.tick(60) / 1000
+            continue  # Safety freeze lock: re-run the while loop from the top!
+
+
         # Update positions of all game objects
         for obj in updatable:
             obj.update(dt)
@@ -91,7 +125,8 @@ def main():
                             file.write(str(high_score))
 
                     print("Game over! Out of lives.")
-                    sys.exit() 
+                    game_is_over = True
+                    break 
                 else:
                     player.respawn()
                     print(f"Ouch! Lives left: {lives}")
