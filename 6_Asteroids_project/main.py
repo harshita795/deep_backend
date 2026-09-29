@@ -116,9 +116,25 @@ def main():
 
         screen.fill("black")
 
-        # Draw all 100 static stars onto the black background first
-        for star in stars:
-            pygame.draw.circle(screen, "white", star, 1)
+        # Move and wrap stars based on the player's movement velocity
+        for i in range(len(stars)):
+            star_x, star_y = stars[i]
+            star_x -= player.velocity.x * dt * 0.5
+            star_y -= player.velocity.y * dt * 0.5
+
+            # Infinite Wrapping: If a star drifts off the screen grid, teleport it to the other side
+            if star_x < 0:
+                star_x = SCREEN_WIDTH
+            elif star_x > SCREEN_WIDTH:
+                star_x = 0
+                
+            if star_y < 0:
+                star_y = SCREEN_HEIGHT
+            elif star_y > SCREEN_HEIGHT:
+                star_y = 0
+
+            stars[i] = (star_x, star_y)
+            pygame.draw.circle(screen, "white", (int(star_x), int(star_y)), 1)
 
         if screen_shake_time > 0:
             screen_shake_time -= dt
