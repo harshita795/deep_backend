@@ -29,6 +29,14 @@ def main():
     lives = 3
     screen_shake_time = 0.0
 
+    # Read the all-time high score from a text file once at launch
+    high_score = 0
+    try: 
+        with open("highscore.txt", "r") as file:
+            high_score= int(file.read().strip())
+    except(FileNotFoundError, ValueError):
+        high_score = 0
+
     # Initialize the sprite groups
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
@@ -77,6 +85,11 @@ def main():
                 screen_shake_time = 0.3
 
                 if lives <= 0:
+                    if score > high_score:
+                        high_score = score
+                        with open("highscore.txt", "w") as file:
+                            file.write(str(high_score))
+
                     print("Game over! Out of lives.")
                     sys.exit() 
                 else:
@@ -121,6 +134,10 @@ def main():
 
         lives_surface = score_font.render(f"Lives: {lives}", True, "white")
         screen.blit(lives_surface, (20 + shake_x, 80 + shake_y))
+
+        high_score_surface = score_font.render(f"HI: {high_score}", True, "white")
+        high_score_x = SCREEN_WIDTH - high_score_surface.get_width() - 20
+        screen.blit(high_score_surface, (high_score_x + shake_x, 20 + shake_y))
 
         for obj in drawable:
             obj.position.x += shake_x

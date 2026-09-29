@@ -7,3 +7,5 @@ __pycache__/
 .python-version
 game_state.jsonl
 game_events.jsonl
+# Local game save data and player records
+highscore.txt
