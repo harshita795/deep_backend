@@ -82,6 +82,11 @@ def main():
         # GAME OVER MENU SCREEN
         if game_is_over:
             keys = pygame.key.get_pressed()
+
+            if keys[pygame.K_ESCAPE]:
+                pygame.quit()
+                return
+
             if keys[pygame.K_RETURN]:
                 # Reset tracking metrics
                 lives = 3
@@ -102,10 +107,13 @@ def main():
             game_over_surface = score_font.render("GAME OVER", True, "red")
             final_score_surface = score_font.render(f"Final Score: {score}", True, "yellow")
             restart_surface = score_font.render("Press ENTER to Restart", True, "white")
+            quit_surface = score_font.render("Press ESC to Quit", True, "white")
             
-            screen.blit(game_over_surface, (SCREEN_WIDTH / 2 - game_over_surface.get_width() / 2, SCREEN_HEIGHT / 2 - 80))
-            screen.blit(final_score_surface, (SCREEN_WIDTH / 2 - final_score_surface.get_width() / 2, SCREEN_HEIGHT / 2))
-            screen.blit(restart_surface, (SCREEN_WIDTH / 2 - restart_surface.get_width() / 2, SCREEN_HEIGHT / 2 + 80))
+            screen.blit(game_over_surface, (SCREEN_WIDTH / 2 - game_over_surface.get_width() / 2, SCREEN_HEIGHT / 2 - 140))
+            screen.blit(final_score_surface, (SCREEN_WIDTH / 2 - final_score_surface.get_width() / 2, SCREEN_HEIGHT / 2 - 60))
+            screen.blit(restart_surface, (SCREEN_WIDTH / 2 - restart_surface.get_width() / 2, SCREEN_HEIGHT / 2 + 30))
+            screen.blit(quit_surface,
+            (SCREEN_WIDTH / 2 - quit_surface.get_width() / 2, SCREEN_HEIGHT / 2 + 100))
             
             pygame.display.flip()
             dt = clock.tick(60) / 1000
