@@ -12,7 +12,10 @@ from particle import ExplosionParticle
 
 def main():
     pygame.init()
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    # screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    screen = pygame.display.set_mode(
+    (SCREEN_WIDTH, SCREEN_HEIGHT),
+    pygame.SCALED | pygame.FULLSCREEN)
     print(f"Starting Asteroids with pygame version: {pygame.version.ver}")
 
     # Create a list of 100 random (X, Y) pixel positions across the screen
