@@ -40,3 +40,27 @@ print(message)
 formatted = f"```\n{message}\n```"
 
 print(formatted)
+
+#! Anonymous Functions
+# A lambda is a small anonymous function without a name.
+# It contains an expression whose result is returned automatically.
+
+
+add_one = lambda number: number + 1
+
+print(add_one(5))
+
+
+# Lambdas are useful for short, simple operations.
+# They can also be returned from another function.
+
+
+def create_multiplier(factor: int):
+    return lambda number: number * factor
+
+
+double = create_multiplier(2)
+triple = create_multiplier(3)
+
+print(double(5))
+print(triple(5))
