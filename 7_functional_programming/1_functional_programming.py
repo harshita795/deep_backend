@@ -201,3 +201,69 @@ text = "  Python is fun.  "
 print(text.strip())
 print(text.upper())
 print(text.replace(".", ""))
+
+#! Functional vs OOP
+# Functional programming and object-oriented programming are different
+# styles of organizing and writing code.
+#
+# Neither style is always better.
+# Python supports ideas from both paradigms, so they can be used together.
+#
+# Encapsulation, abstraction, and polymorphism can be useful in both styles.
+# Inheritance is mainly associated with object-oriented programming.
+#
+# The right approach depends on the problem being solved.
+# A good developer should understand both styles and use them appropriately.
+
+#! Statements vs Expressions
+# A statement performs an action.
+# An expression produces a value.
+
+
+number = 10  # assignment statement
+
+total = number * 2  # arithmetic expression
+
+
+# Function calls are also expressions because they produce a value.
+
+length = len("Python")
+
+print(length)
+
+
+# Even a function without a return statement produces None.
+
+def show_message() -> None:
+    print("Hello")
+
+
+result = show_message()
+print(result)
+
+
+# Functional programming favors expressions because
+# they can be combined, reused, and composed more easily.
+
+total = sum([1, 2, 3, 4]) * 2
+
+print(total)
+
+#! Ternary Expressions
+# A ternary expression lets us choose between two values
+# based on a condition in a single expression.
+#
+# Syntax:
+# value_if_true if condition else value_if_false
+
+
+def get_status(is_active: bool) -> str:
+    return "Active" if is_active else "Inactive"
+
+
+print(get_status(True))
+print(get_status(False))
+
+
+# Ternaries are useful for simple conditions.
+# For complex logic, a normal if/else block is usually easier to read.
