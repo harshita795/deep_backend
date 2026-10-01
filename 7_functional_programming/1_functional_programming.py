@@ -160,3 +160,44 @@ def get_middle_value(numbers: list[int]) -> int | None:
 
 
 print(get_middle_value([10, 8, 7, 5]))
+
+#! Functions vs Classes
+# Functions and classes solve different kinds of problems.
+#
+# Prefer functions when working mainly with data transformations
+# and when state does not need to persist between operations.
+#
+# Classes are useful when data and behavior belong together
+# and an object needs to maintain state over time.
+#
+# When unsure, starting with functions can keep the code simpler.
+# The choice can be changed later as the project grows.
+
+#! Debugging Functional Programming
+# Break complex expressions into smaller steps when debugging.
+# Intermediate variables make it easier to inspect each transformation.
+
+
+def format_message(message: str) -> str:
+    cleaned = message.strip()
+    uppercase = cleaned.upper()
+    without_periods = uppercase.replace(".", "")
+    result = f"{without_periods}..."
+
+    return result
+
+
+print(format_message("  hello world.  "))
+
+
+# String transformations
+# strip() removes whitespace from both ends.
+# upper() converts all characters to uppercase.
+# replace() replaces matching text.
+
+
+text = "  Python is fun.  "
+
+print(text.strip())
+print(text.upper())
+print(text.replace(".", ""))
