@@ -229,3 +229,59 @@ clean_document = remove_emphasis(document)
 print(clean_document)
 
 # The original document is unchanged.
+
+#! Memoization
+# Memoization means caching a function's result
+# so the same calculation doesn't need to be done again.
+
+
+def count_words(text: str) -> int:
+    return len(text.split())
+
+
+def count_words_memo(
+    text: str,
+    cache: dict[str, int]
+) -> tuple[int, dict[str, int]]:
+    new_cache = cache.copy()
+
+    if text in new_cache:
+        return new_cache[text], new_cache
+
+    word_count = count_words(text)
+    new_cache[text] = word_count
+
+    return word_count, new_cache
+
+
+cache = {}
+
+count, cache = count_words_memo("Python is great", cache)
+print(count)
+
+# Same input → use the cached result.
+count, cache = count_words_memo("Python is great", cache)
+print(count)
+
+print(cache)
+
+#! Referential Transparency
+# A function is referentially transparent when its call
+# can be replaced by its result without changing the program.
+
+
+def add(a: int, b: int) -> int:
+    return a + b
+
+
+result = add(2, 3)
+
+print(result)
+print(5)  # Equivalent because add(2, 3) always returns 5.
+
+
+# Memoization is useful for expensive or repeated computations.
+# It trades memory for faster repeated calls.
+#
+# Fast functions may not benefit enough to justify the
+# extra cache memory and code.
