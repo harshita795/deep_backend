@@ -135,3 +135,97 @@ updated_tags = add_tag_safely(original_tags, "backend")
 
 print(original_tags)
 print(updated_tags)
+
+#! Input and Output
+# I/O means interacting with the outside world.
+# Examples include printing, files, databases, and network requests.
+#
+# I/O is a side effect, so pure functions should avoid it.
+
+
+def convert_case(text: str, case: str) -> str:
+    if case == "upper":
+        return text.upper()
+
+    if case == "lower":
+        return text.lower()
+
+    if case == "title":
+        return text.title()
+
+    raise ValueError("unsupported case")
+
+
+text = "python backend development"
+
+print(convert_case(text, "upper"))
+print(convert_case(text, "title"))
+
+
+# The function returns a value instead of printing it.
+# This keeps the transformation separate from the I/O.
+
+
+#! Containing I/O
+# I/O is necessary, but it is better to keep it separate
+# from the main data-processing logic.
+#
+# A common structure is:
+#
+#   input → pure processing → output
+#
+# For example, reading and writing a file can be handled
+# outside, while the data in between is processed by pure functions.
+
+
+def count_words(text: str) -> int:
+    return len(text.split())
+
+
+text = "Python is useful for backend development"
+
+word_count = count_words(text)
+
+print(word_count)
+
+#! No-Op
+# A no-op is an operation that produces no useful result
+# and does not cause a side effect.
+
+
+def unused_calculation(number: int) -> None:
+    number * 2
+
+
+# Printing is an I/O operation, so it is a side effect.
+
+def show_name(name: str) -> None:
+    print(name)
+
+
+# A pure version returns the value instead.
+
+def format_name(name: str) -> str:
+    return name.upper()
+
+
+print(format_name("harshita"))
+
+
+# Avoid changing global state inside a function.
+# Pass the data in and return a new value instead.
+
+def remove_emphasis(text: str) -> str:
+    words = text.split()
+    clean_words = map(lambda word: word.strip("*"), words)
+
+    return " ".join(clean_words)
+
+
+document = "*Python* is **great**"
+
+clean_document = remove_emphasis(document)
+
+print(clean_document)
+
+# The original document is unchanged.
