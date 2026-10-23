@@ -33,6 +33,12 @@ def main():
         ],
     )
 
+    if response.usage is None:
+        raise RuntimeError("Token usage information is missing.")
+
+    print(f"Prompt tokens: {response.usage.prompt_tokens}")
+    print(f"Response tokens: {response.usage.completion_tokens}")
+
     # Print the AI's answer
     print(response.choices[0].message.content)
 
