@@ -28,15 +28,15 @@ def main():
         api_key=api_key,
     )
 
+    # Store the conversation as a list of messages
+    messages = [
+        {"role": "user", "content": args.user_prompt},
+    ]
+
     # Send a question to the AI model
     response = client.chat.completions.create(
         model="openrouter/free",
-        messages=[
-            {
-                "role": "user",
-                "content": args.user_prompt,
-            }
-        ],
+        messages=messages,
     )
 
     if response.usage is None:
