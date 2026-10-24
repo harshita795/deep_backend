@@ -1,9 +1,18 @@
 import os
+import argparse
 from dotenv import load_dotenv
 from openai import OpenAI
 
 
 def main():
+    parser = argparse.ArgumentParser(description="AI Agent")
+    parser.add_argument(
+        "user_prompt",
+        type=str,
+        help="The question to ask the AI model",
+    )
+    args = parser.parse_args()
+
     load_dotenv()
     api_key = os.environ.get("OPENROUTER_API_KEY")
 
@@ -25,10 +34,7 @@ def main():
         messages=[
             {
                 "role": "user",
-                "content": (
-                    "Why is Boot.dev such a great place to learn "
-                    "backend development? Use one paragraph maximum."
-                ),
+                "content": args.user_prompt,
             }
         ],
     )
