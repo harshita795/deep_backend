@@ -7,11 +7,17 @@ from openai import OpenAI
 def main():
     parser = argparse.ArgumentParser(description="AI Agent")
     parser.add_argument(
-        "user_prompt",
+        "prompt",
         type=str,
-        help="The question to ask the AI model",
+        help="The prompt to send to the AI",
+    )
+    parser.add_argument(
+        "--verbose",
+        action="store_true",
+        help="Enable verbose output",
     )
     args = parser.parse_args()
+    user_prompt = args.prompt
 
     load_dotenv()
     api_key = os.environ.get("OPENROUTER_API_KEY")
@@ -30,10 +36,10 @@ def main():
 
     # Store the conversation as a list of messages
     messages = [
-        {"role": "user", "content": args.user_prompt},
+        {"role": "user", "content": user_prompt,},
     ]
 
-    # Send a question to the AI model
+    # Send the conversation to the AI model
     response = client.chat.completions.create(
         model="openrouter/free",
         messages=messages,
@@ -42,8 +48,10 @@ def main():
     if response.usage is None:
         raise RuntimeError("Token usage information is missing.")
 
-    print(f"Prompt tokens: {response.usage.prompt_tokens}")
-    print(f"Response tokens: {response.usage.completion_tokens}")
+    if args.verbose:
+        print(f"User prompt: {user_prompt}")
+        print(f"Prompt tokens: {response.usage.prompt_tokens}")
+        print(f"Response tokens: {response.usage.completion_tokens}")
 
     # Print the AI's answer
     print(response.choices[0].message.content)
