@@ -1,8 +1,11 @@
 import os
 import argparse
+import json
+
 from dotenv import load_dotenv
 from openai import OpenAI
 from prompts import system_prompt
+from call_function import available_functions
 
 def main():
     parser = argparse.ArgumentParser(description="AI Agent")
@@ -44,6 +47,7 @@ def main():
     response = client.chat.completions.create(
         model="openrouter/free",
         messages=messages,
+        tools=available_functions,
         temperature=0,
     )
 
@@ -55,8 +59,23 @@ def main():
         print(f"Prompt tokens: {response.usage.prompt_tokens}")
         print(f"Response tokens: {response.usage.completion_tokens}")
 
-    # Print the AI's answer
-    print(response.choices[0].message.content)
+    # Extract the assistant's message.    
+    message = response.choices[0].message
+    
+    # Check whether the LLM requested any tools.
+    if message.tool_calls:
+        for tool_call in message.tool_calls:
+            function_args = json.loads(
+                tool_call.function.arguments or "{}"
+            )
+
+            print(
+                f"Calling function: "
+                f"{tool_call.function.name}({function_args})"
+            )
+    else:
+        print(message.content)
+
 
 
 if __name__ == "__main__":
