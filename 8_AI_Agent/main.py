@@ -2,7 +2,7 @@ import os
 import argparse
 from dotenv import load_dotenv
 from openai import OpenAI
-
+from prompts import system_prompt
 
 def main():
     parser = argparse.ArgumentParser(description="AI Agent")
@@ -36,13 +36,15 @@ def main():
 
     # Store the conversation as a list of messages
     messages = [
-        {"role": "user", "content": user_prompt,},
+    {"role": "system", "content": system_prompt},
+    {"role": "user", "content": user_prompt},
     ]
 
     # Send the conversation to the AI model
     response = client.chat.completions.create(
         model="openrouter/free",
         messages=messages,
+        temperature=0,
     )
 
     if response.usage is None:
