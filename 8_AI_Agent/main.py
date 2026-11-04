@@ -1,6 +1,7 @@
 import os
 import argparse
 import json
+import sys
 
 from dotenv import load_dotenv
 from openai import OpenAI
@@ -44,37 +45,46 @@ def main():
     ]
 
     # Send the conversation to the AI model
-    response = client.chat.completions.create(
-        model="openrouter/free",
-        messages=messages,
-        tools=available_functions,
-        temperature=0,
-    )
+    for _ in range(20):
+        response = client.chat.completions.create(
+            model="openrouter/free",
+            messages=messages,
+            tools=available_functions,
+            temperature=0,
+        )
 
-    if response.usage is None:
-        raise RuntimeError("Token usage information is missing.")
+        if response.usage is None:
+            raise RuntimeError("Token usage information is missing.")
 
-    if args.verbose:
-        print(f"User prompt: {user_prompt}")
-        print(f"Prompt tokens: {response.usage.prompt_tokens}")
-        print(f"Response tokens: {response.usage.completion_tokens}")
+        if args.verbose:
+            print(f"User prompt: {user_prompt}")
+            print(f"Prompt tokens: {response.usage.prompt_tokens}")
+            print(f"Response tokens: {response.usage.completion_tokens}")
 
-    # Extract the assistant's message.    
-    message = response.choices[0].message
-    
-    # Check whether the LLM requested any tools.
-    if message.tool_calls:
-        for tool_call in message.tool_calls:
-            result_message = call_function(tool_call, verbose=args.verbose)
+        # Extract the assistant's message.    
+        message = response.choices[0].message
+        messages.append(message)
+        
+        # Check whether the LLM requested any tools.
+        if message.tool_calls:
+            for tool_call in message.tool_calls:
+                result_message = call_function(tool_call, verbose=args.verbose)
 
-            if not result_message["content"]:
-                raise Exception("Tool call returned an empty result")
+                if not result_message["content"]:
+                    raise Exception("Tool call returned an empty result")
 
-            if args.verbose:
-                print(f"-> {result_message['content']}")
+                messages.append(result_message)
+
+                if args.verbose:
+                    print(f"-> {result_message['content']}")
+
+        else:
+            print(f"Final response:\n{message.content}")
+            break
 
     else:
-        print(message.content)
+        print("Agent stopped: maximum iterations reached.")
+        sys.exit(1)
 
 
 if __name__ == "__main__":
