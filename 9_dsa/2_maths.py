@@ -1,3 +1,4 @@
+import math
 # Exponents: Raising a number to a power using **.
 
 square = 4 ** 2
@@ -67,3 +68,38 @@ print(get_growth_prediction(10, "fast", 2))    # 160
 print(get_growth_prediction(10, "medium", 2))  # 90
 print(get_growth_prediction(10, "slow", 2))    # 40
 
+
+#! Logarithms calculate the power needed to reach a given number.
+
+print(math.log(32, 2))    # 5.0
+print(math.log(100, 10))  # 2.0
+print(math.log(81, 3))    # 4.0
+
+
+# Calculate the number of doubling periods needed to reach a target size.
+
+def get_doubling_periods(initial_size: int, target_size: int) -> float:
+    if initial_size <= 0 or target_size <= 0:
+        raise ValueError("Sizes must be positive")
+
+    if target_size < initial_size:
+        raise ValueError("Target size must not be smaller than initial size")
+
+    return math.log(target_size / initial_size, 2)
+
+
+print(get_doubling_periods(10, 80))    # 3.0
+print(get_doubling_periods(25, 100))   # 2.0
+
+
+# Calculate a score using the logarithm of a user's activity count.
+
+def calculate_activity_score(activity_count: int, engagement_rate: float) -> float:
+    if activity_count <= 0:
+        return 0.0
+
+    return engagement_rate * math.log(activity_count, 2)
+
+
+print(calculate_activity_score(64, 5.0))  # 30.0
+print(calculate_activity_score(0, 5.0))   # 0.0
