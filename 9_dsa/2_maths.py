@@ -123,3 +123,18 @@ def calculate_factorial(number: int) -> int:
 print(calculate_factorial(5))  # 120
 
 
+
+#! Exponential decay: A quantity decreases by a fixed percentage over time.
+
+def calculate_remaining_battery(
+    initial_capacity: int,
+    daily_loss_rate: float,
+    days: int
+) -> float:
+    retention_rate = 1 - daily_loss_rate
+    remaining_capacity = initial_capacity * (retention_rate ** days)
+
+    return remaining_capacity
+
+
+print(calculate_remaining_battery(100, 0.20, 3))  # 51.2
