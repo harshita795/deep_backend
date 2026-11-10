@@ -103,3 +103,22 @@ def calculate_activity_score(activity_count: int, engagement_rate: float) -> flo
 
 print(calculate_activity_score(64, 5.0))  # 30.0
 print(calculate_activity_score(0, 5.0))   # 0.0
+
+ 
+# Multiply all positive integers from 1 to a given number.
+
+def calculate_factorial(number: int) -> int:
+    if number < 0:
+        raise ValueError("Number cannot be negative")
+
+    result = 1
+
+    for value in range(2, number + 1):
+        result *= value
+
+    return result
+
+
+# Calculate the number of possible arrangements of books on a shelf.
+print(calculate_factorial(5))  # 120
+
