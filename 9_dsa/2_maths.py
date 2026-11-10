@@ -105,7 +105,7 @@ print(calculate_activity_score(64, 5.0))  # 30.0
 print(calculate_activity_score(0, 5.0))   # 0.0
 
  
-# Multiply all positive integers from 1 to a given number.
+#! Factorial: Multiply all positive integers from 1 to a given number.
 
 def calculate_factorial(number: int) -> int:
     if number < 0:
@@ -121,4 +121,5 @@ def calculate_factorial(number: int) -> int:
 
 # Calculate the number of possible arrangements of books on a shelf.
 print(calculate_factorial(5))  # 120
+
 
