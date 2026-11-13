@@ -123,7 +123,6 @@ def calculate_factorial(number: int) -> int:
 print(calculate_factorial(5))  # 120
 
 
-
 #! Exponential decay: A quantity decreases by a fixed percentage over time.
 
 def calculate_remaining_battery(
@@ -138,3 +137,20 @@ def calculate_remaining_battery(
 
 
 print(calculate_remaining_battery(100, 0.20, 3))  # 51.2
+
+
+#! Logarithmic scale: Converts large values into smaller logarithmic values.
+
+import math
+
+
+def convert_traffic_scale(traffic_data: list[int], base: int) -> list[float]:
+    log_values = []
+
+    for visits in traffic_data:
+        log_values.append(math.log(visits, base))
+
+    return log_values
+
+
+print(convert_traffic_scale([100, 1000, 10000, 100000], 10))
