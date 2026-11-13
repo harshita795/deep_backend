@@ -154,3 +154,26 @@ def convert_traffic_scale(traffic_data: list[int], base: int) -> list[float]:
 
 
 print(convert_traffic_scale([100, 1000, 10000, 100000], 10))
+
+
+#! Mean and median: Two ways to find the central value of a dataset.
+
+def analyze_response_times(times: list[int]) -> tuple[float, float] | None:
+    if not times:
+        return None
+
+    mean = sum(times) / len(times)
+
+    sorted_times = sorted(times)
+    middle = len(sorted_times) // 2
+
+    if len(sorted_times) % 2 == 0:
+        median = (sorted_times[middle - 1] + sorted_times[middle]) / 2
+    else:
+        median = sorted_times[middle]
+
+    return mean, median
+
+
+print(analyze_response_times([20, 25, 30, 35, 100]))
+
