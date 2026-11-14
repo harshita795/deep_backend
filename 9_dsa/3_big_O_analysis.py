@@ -33,3 +33,26 @@ def find_matching_products(
 
 
 print(find_matching_products([101, 202, 303], [202, 404, 101]))  # [101, 202]
+
+
+#! O(n * m): Two nested loops process two different input sizes.
+
+def calculate_average_sales(store_sales: list[list[int]]) -> float:
+    total_sales = 0
+    total_stores = len(store_sales)
+
+    if not store_sales:
+        return 0.0
+
+    for sales in store_sales:
+        for quantity in sales:
+            total_sales += quantity
+
+    return total_sales / total_stores
+
+
+print(calculate_average_sales([
+    [10, 20, 30],
+    [15, 25],
+    [40, 50, 60]
+]))  #  # 83.3333333333333
