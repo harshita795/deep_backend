@@ -56,3 +56,24 @@ print(calculate_average_sales([
     [15, 25],
     [40, 50, 60]
 ]))  #  # 83.3333333333333
+
+
+#! O(1): Dictionary lookup takes constant time on average.
+
+def find_employee_department(
+    employees: dict[int, str],
+    employee_id: int
+) -> str | None:
+    if employee_id not in employees:
+        return None
+
+    return employees[employee_id]
+
+
+employee_departments = {
+    101: "Engineering",
+    102: "Marketing",
+    103: "Finance"
+}
+
+print(find_employee_department(employee_departments, 102))
