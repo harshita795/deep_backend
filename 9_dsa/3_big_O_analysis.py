@@ -77,3 +77,27 @@ employee_departments = {
 }
 
 print(find_employee_department(employee_departments, 102))
+
+
+#! O(log n): Binary search on a sorted list.
+
+def find_product_price(prices: list[int], target: int) -> bool:
+    low = 0
+    high = len(prices) - 1
+
+    while low <= high:
+        middle = (low + high) // 2
+
+        if prices[middle] == target:
+            return True
+        elif prices[middle] < target:
+            low = middle + 1
+        else:
+            high = middle - 1
+
+    return False
+
+
+product_prices = [100, 250, 400, 550, 700, 850, 1000]
+
+print(find_product_price(product_prices, 550))
