@@ -101,3 +101,28 @@ def find_product_price(prices: list[int], target: int) -> bool:
 product_prices = [100, 250, 400, 550, 700, 850, 1000]
 
 print(find_product_price(product_prices, 550))
+
+
+#! O(mn): Count matching products in nested lists.
+
+def count_products(
+    shopping_carts: list[list[str]],
+    target_product: str
+) -> int:
+    count = 0
+
+    for cart in shopping_carts:
+        for product in cart:
+            if product == target_product:
+                count += 1
+
+    return count
+
+
+carts = [
+    ["laptop", "mouse", "keyboard"],
+    ["mouse", "monitor"],
+    ["laptop", "mouse"]
+]
+
+print(count_products(carts, "mouse"))
